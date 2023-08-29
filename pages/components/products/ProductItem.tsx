@@ -1,9 +1,10 @@
-import Image from "next/image";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { cartActions } from "@/store/cartSlice";
+import Image from 'next/image';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '@/store/cartSlice';
 
 const ProductItem: React.FC<{
+	id?: string;
 	title: string;
 	price: number;
 	image: string;
@@ -14,7 +15,17 @@ const ProductItem: React.FC<{
 
 	const addToCartHandler = () => {
 		dispatch(cartActions.showCartDrawer());
-	}
+
+		const product = {
+			id: props.id,
+			title: props.title,
+			price: props.price,
+			quantity: 1,
+			image: props.image,
+		};
+
+		dispatch(cartActions.addToCart(product));
+	};
 
 	return (
 		<div className="w-full bg-white border border-gray-200 rounded-lg shadow">
@@ -56,9 +67,11 @@ const ProductItem: React.FC<{
 						5.0
 					</span>
 				</div>
+
+			
 				<div className="flex items-center justify-between">
 					<span className="text-3xl font-bold text-gray-900 ">
-						$599
+						${props.price}
 					</span>
 					<button
 						onClick={addToCartHandler}

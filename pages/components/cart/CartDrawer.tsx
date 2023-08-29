@@ -1,20 +1,23 @@
-import { RootState } from "@/store";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "@/store/cartSlice";
+import { RootState } from '@/store';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartActions } from '@/store/cartSlice';
+import { Root } from 'postcss';
+import CartItems from './CartItems';
 
 const CartDrawer = () => {
-	const isOpen = useSelector( (state : RootState) => state.cart.showCart);
+	const isOpen = useSelector((state: RootState) => state.cart.showCart);
+	const cartItems = useSelector((state: RootState) => state.cart.items);
 	const dispatch = useDispatch();
 
 	const toggleDrawer = () => {
-		dispatch(cartActions.hideCartDrawer())
-	}
+		dispatch(cartActions.hideCartDrawer());
+	};
 
 	return (
 		<div
 			className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform ${
-				isOpen ? "translate-x-0" : "translate-x-full"
+				isOpen ? 'translate-x-0' : 'translate-x-full'
 			} bg-white w-80 dark:bg-gray-800`}
 		>
 			<h5 className="inline-flex items-center mb-4 font-semibold text-white text-2xl">
@@ -45,30 +48,23 @@ const CartDrawer = () => {
 				<span className="sr-only">Close menu</span>
 			</button>
 
-			<div className="grid mt-5">
-				<div className="cartItems grid grid-cols-5 gap-3 text-white">
-					<div className="col-span-2">
-						<img
-							src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-							className="rounded-xl"
-						/>
-					</div>
-					<div className="col-span-3">
-						<h4>Title product here</h4>
-						<div className="mt-4 flex gap-2">
-							<button className="font-bolder border px-3 background-white">
-								+
-							</button>
-							<span className="border px-5 py-1">1</span>
-							<button className="font-bolder border px-3 background-white">
-								-
-							</button>
-						</div>
-					</div>
-				</div>
+			{cartItems &&
+				cartItems.map((cart) => (
+					<CartItems
+						key={cart.id}
+						id={cart.id}
+						title={cart.title}
+						price={cart.price}
+						quantity={cart.quantity}
+						image={cart.image}
+					/>
+				))}
+
+			<div className="mt-5">
+				<h3 className='text-orange-200 text-2xl'>Subtotal: $10000</h3>
 			</div>
 
-			<div className="grid grid-cols-2 gap-4 mt-5">
+			<div className="grid grid-cols-2 gap-4 mt-5  bottom-0">
 				<a
 					href="#"
 					className="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
