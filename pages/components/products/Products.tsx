@@ -8,7 +8,7 @@ const Products: React.FC<{ products: IProduct[] }> = (props) => {
 			{props.products.map((product) => (
 				<ProductItem
 					key={product._id}
-					id={product._id}
+					_id={product._id}
 					title={product.title}
 					price={product.price}
 					rating={product.rating}

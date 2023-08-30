@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface CartLineItem {
-	id: string;
+	_id?: string;
 	title: string;
 	price: number;
 	quantity: number;
@@ -33,12 +33,12 @@ const cartSlice = createSlice({
 		},
 		addToCart: (state, action: PayloadAction<CartLineItem>) => {
 			const existingProduct = state.items.find(
-				(product) => product.id === action.payload.id
+				(product) => product._id === action.payload._id
 			);
 
 			if (existingProduct) {
 				const productIndex = state.items.findIndex(
-					(product) => product.id === action.payload.id
+					(product) => product._id === action.payload._id
 				);
 
 				const updatedProduct = {
@@ -51,19 +51,38 @@ const cartSlice = createSlice({
 			} else {
 				state.items.push(action.payload);
 			}
+
+			state.totalItemCount += action.payload.quantity;
+
+			const totalPrice = parseFloat(
+				(
+					state.totalPrice +
+					action.payload.price * action.payload.quantity
+				).toFixed(2)
+			);
+
+			state.totalPrice = totalPrice;
 		},
 		removeToCart: (state, action: PayloadAction<{ id: string }>) => {
 			const productIndex = state.items.findIndex(
-				(product) => product.id === action.payload.id
+				(product) => product._id === action.payload.id
 			);
 
 			if (state.items[productIndex].quantity > 1) {
 				state.items[productIndex].quantity - 1;
 			} else {
 				state.items = state.items.filter(
-					(product) => product.id !== action.payload.id
+					(product) => product._id !== action.payload.id
 				);
 			}
+
+			state.totalItemCount--;
+
+			const totalPrice = parseFloat(
+				(state.totalPrice - state.items[productIndex].price).toFixed(2)
+			);
+
+			state.totalPrice = totalPrice;
 		},
 	},
 });

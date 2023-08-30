@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CartItems: React.FC<{
-	id: string;
+	_id?: string ;
 	title: string;
 	price: number;
 	quantity: number;
@@ -19,7 +19,7 @@ const CartItems: React.FC<{
 				<div className="col-span-3">
 					<h4>{props.title}</h4>
 					<div className="mt-4 flex gap-2">
-						<button className="font-bolder border px-3 background-white" >
+						<button className="font-bolder border px-3 background-white">
 							+
 						</button>
 						<span className="border px-5 py-1">{props.quantity}</span>

@@ -8,6 +8,7 @@ import CartItems from './CartItems';
 const CartDrawer = () => {
 	const isOpen = useSelector((state: RootState) => state.cart.showCart);
 	const cartItems = useSelector((state: RootState) => state.cart.items);
+	const subTotal = useSelector((state : RootState) => state.cart.totalPrice)
 	const dispatch = useDispatch();
 
 	const toggleDrawer = () => {
@@ -51,8 +52,8 @@ const CartDrawer = () => {
 			{cartItems &&
 				cartItems.map((cart) => (
 					<CartItems
-						key={cart.id}
-						id={cart.id}
+						key={cart._id}
+						_id={cart._id}
 						title={cart.title}
 						price={cart.price}
 						quantity={cart.quantity}
@@ -61,7 +62,7 @@ const CartDrawer = () => {
 				))}
 
 			<div className="mt-5">
-				<h3 className='text-orange-200 text-2xl'>Subtotal: $10000</h3>
+				<h3 className='text-orange-200 text-2xl'>Subtotal: ${subTotal}</h3>
 			</div>
 
 			<div className="grid grid-cols-2 gap-4 mt-5  bottom-0">
