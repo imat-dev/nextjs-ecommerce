@@ -16,6 +16,11 @@ const productService = {
 		// 	.toArray();
 		// client.close();
 	},
+	find: async (id: string) => {
+		await dbConnect();
+		const product = await Product.findById(id);
+		return JSON.parse(JSON.stringify(product));
+	},
 };
 
 export default productService;

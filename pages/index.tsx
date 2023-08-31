@@ -2,15 +2,19 @@ import axios from 'axios';
 import service from '@/service';
 import { IProduct } from '@/model/product';
 import Products from './components/products/Products';
+import ProductSlider from './components/homepage/ProductSlider';
 
 const HomePage: React.FC<{ products: IProduct[] }> = (props) => {
 	return (
-		<section className="container mx-auto mt-10 px-5 sm:px-0">
-			<h1 className="text-4xl mb-8 text-blue-600 font-bold">
-				Featured Products
-			</h1>
-			<Products products={props.products} />
-		</section>
+		<>
+			<ProductSlider />
+			<section className="container mx-auto mt-10 px-5 sm:px-0">
+				<h1 className="text-4xl mb-8 text-blue-600 font-bold">
+					Featured Products
+				</h1>
+				<Products products={props.products} />
+			</section>
+		</>
 	);
 };
 

@@ -6,6 +6,7 @@ const ProductRating: React.FC<{ rating: number, count: number }> = (props) => {
 	for (let i = 0; i < grayStarCount - 1; i++) {
 		grayStar.push(
 			<svg
+				key={i}
 				className="w-4 h-4 text-gray-300 dark:text-gray-500"
 				aria-hidden="true"
 				xmlns="http://www.w3.org/2000/svg"
@@ -21,6 +22,7 @@ const ProductRating: React.FC<{ rating: number, count: number }> = (props) => {
 	for (let i = 0; i < 5; i++) {
 		yellowStar.push(
 			<svg
+				key={i}
 				className="w-4 h-4 text-yellow-300"
 				aria-hidden="true"
 				xmlns="http://www.w3.org/2000/svg"
